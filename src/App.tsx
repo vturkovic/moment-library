@@ -1,25 +1,46 @@
-import React from 'react';
-import logo from './logo.svg';
+import { useState } from 'react';
+import moment from 'moment';
 import './App.css';
 
-function App() {
+const App = () => {
+
+  const [date, setDate] = useState('');
+
+  const handleSubmit = (event: any) => {
+    event.preventDefault();
+    const formatedDate = moment(new Date(event.target.elements.date.value)).format('MMMM Do YYYY, h:mm:ss a');
+    setDate(formatedDate);
+    alert(JSON.stringify(formatedDate, null, 2));
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <form onSubmit={handleSubmit}>
+      <h2>Form</h2>
+      <div>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          placeholder="Name" />
+      </div>
+      <div>
+        <input
+          type="text"
+          id="surname"
+          name="surname"
+          placeholder="Surname" />
+        </div>
+        <div>
+          <input
+            type="date"
+            id="date"
+            name="date" 
+            min="2020-01-01" max="2024-01-01" />
+        </div>
+      <button type="submit">
+        Submit
+      </button>
+    </form>
   );
 }
 
